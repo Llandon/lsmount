@@ -1,0 +1,64 @@
+lsmount(1)
+==========
+:doctype: manpage
+:man source: lsmount
+:man manual: lsmount manual
+
+Name
+----
+lsmount - a simple formatter for /proc/mounts
+
+DESCRIPTION
+-----------
+gives you a much more readable output of /proc/mounts
+with optional colorizing, alignment and a few more useful
+options.
+
+OPTIONS
+-------
+*-a*, *--use_alignment* ::
+	use alignment
+*-c*, *--use_color* ::
+	use colors
+*-d*, *--debug* ::
+	show debug outputs
+*-f*, *--file* ::
+	use another input file
+*-h*, *--help* ::
+	show this help
+*-l*, *--resolv_symlinks* ::
+	resolv symlinks
+*-r*, *--show_rootfs* ::
+	show rootfs
+*-s*, *--shrink_eighty* ::
+	try shrinking to 80 chars
+*-t*, *--show_tmpfs* ::
+	show tmpfs
+*-u*, *--show_unused* ::
+	show unused columns
+*-v*, *--print_vertical* ::
+	vertical output
+
+all short options can be inverted by using the upercase letter,
+the longopts can be inverted by adding dont_ in front.
+
+CONFIGURATION
+-------------
+configuration files /etc/lsmount.rc, ~/.config/lsmount.rc
+
+Available Options are debug, use_color, show_rootfs, shrink_eighty, 
+show_tmpfs, show_unused, resolv_symlinks, use_alignment, vertical as
+described above.
+
+shrink_eighty forces show_unused = false;
+
+Syntax: option = [false|true];
+
+AUTHOR
+------
+*lsmount* is written by Andreas Schwarz *contact:* a.schwarz_dev@dntw.de
+
+RESOURCES
+---------
+Git: <https://github.com/Llandon/lsmount.git>
+

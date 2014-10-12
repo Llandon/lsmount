@@ -1,0 +1,28 @@
+Overview
+==========
+
+lsmount is a small programm for formating the /proc/mounts output
+
+--------------------
+Dependencies
+--------------------
+
+libc
+
+--------------------
+Building
+--------------------
+
+Dependencies
+libc6-dev
+libconfig-dev (>=1.4.8)
+
+Command
+make
+
+--------------------
+Building manpage
+--------------------
+
+make manpage
+

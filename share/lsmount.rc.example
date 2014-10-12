@@ -1,0 +1,9 @@
+use_alignment    = true;
+use_color        = true;
+debug            = false;
+resolve_symlinks = true;
+show_rootfs      = false;
+shrink_eighty    = true;
+show_tmpfs       = false;
+show_unused      = false;
+print_vertical   = false;
