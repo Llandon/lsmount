@@ -30,14 +30,14 @@ clean:
 
 install: lsmount manpage
 	cp lsmount /usr/bin/$(BIN)
-	cp share/lsmount.rc.example /etc/lsmount.conf
+	cp share/lsmount.rc.example /etc/lsmountrc
 	cp doc/lsmount.1.gz /usr/share/man/man1/
 
 uninstall:
 	rm -f /usr/bin/$(BIN)
-	rm -f /etc/lsmount.conf
+	rm -f /etc/lsmountrc
 	rm -f /usr/share/man/man1/lsmount.1.gz
 
 manpage: doc/lsmount.txt
 	a2x -f manpage doc/lsmount.txt
-	gzip doc/lsmount.1
+	gzip -f doc/lsmount.1
