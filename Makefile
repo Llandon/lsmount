@@ -1,14 +1,14 @@
 .PHONY: all clean install uninstall manpage
 
 CC     = /usr/bin/gcc
-CFLAGS = -std=gnu99 -lconfig -D_GNU_SOURCE
+CFLAGS += -std=gnu99 -lconfig -D_GNU_SOURCE
 CFLAGS += `pkg-config --cflags libconfig`
 LDLIBS += `pkg-config --libs libconfig`
 BIN    = lsmount
 OBJ    = lsmount.o lsmgrid.o options.o
 VPATH  = src
 
-all: CFLAGS += -O3 -Wall -Werror -pedantic
+all: CFLAGS += -O2 -Wall -Werror -pedantic
 all: $(BIN)
 
 debug: CFLAGS += -g -Og -DDEBUG -Wextra -pedantic  -Wcast-qual -Wcast-align -Wformat -Wformat-nonliteral -Wformat-security  -Winit-self -Wmissing-include-dirs -Wno-suggest-attribute=noreturn -Wno-write-strings -Wpointer-arith -Wredundant-decls -Wundef -Wpacked -Wunreachable-code  -Wno-unused-parameter -Wconversion -Wshadow -Wstrict-prototypes -Wbad-function-cast -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wnested-externs

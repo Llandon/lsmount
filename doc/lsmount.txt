@@ -60,5 +60,5 @@ AUTHOR
 
 RESOURCES
 ---------
-Git: <https://github.com/Llandon/lsmount.git>
+Git: <git://github.com/Llandon/lsmount.git>
 

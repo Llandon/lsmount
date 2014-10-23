@@ -14,8 +14,10 @@ Building
 --------------------
 
 Dependencies
-libc6-dev
+debhelper (>=9)
 libconfig-dev (>=1.4.8)
+asciidoc
+xmlto
 
 Command
 make
