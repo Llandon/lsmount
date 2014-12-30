@@ -203,7 +203,10 @@ void usage (int status) {
 	       "  -v, --print_vertical         vertical output\n"
 	       "\n"
 	       "all short options can be inverted by using the uppercase letter,\n"
-	       "the longopts can be inverted by adding dont_ in front.")
+	       "the longopts can be inverted by adding dont_ in front.\n"
+	       "\n"
+           "Version: v0.1.2\n"
+	       "License: ISC\n")
 	);
 	exit(status);
 }
