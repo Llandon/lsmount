@@ -153,7 +153,6 @@ void grid_print(t_grid* grid) {
 						grid->max_col_len[2]+
 						4
 					);
-					//if(show_unused == 1) { space -= 4; } // TODO show_unused
 					grid_print_split(grid->elem[i*columns+j].value,",",space);
 				}else{
 					printf("%s ", grid->elem[i*columns+j].value);
@@ -173,8 +172,8 @@ void grid_print(t_grid* grid) {
 						putchar(' ');
 					}
 				}else{
-					// TODO use_alignment + show_unused
-					// even if it's doesn't make sense
+					/* the case use_alignment + show_unused
+					   doesn't make sense => ignore */
 				}
 			}
 			if(use_color == 1) { printf(ANSI_ESC_RESET); }
@@ -211,7 +210,6 @@ int grid_print_split(char* line, const char* delim, size_t max) {
 		}else{ // begin new line
 			if(0 != tokcnt) { putchar(','); }
 			
-			// fixme
 			if(1==linecnt) {
 				for(size_t i=0; i<max-chrpl_old; ++i) { putchar(' '); }
 				if(1 == show_unused && 1 == use_color) { printf(COLOR5); }

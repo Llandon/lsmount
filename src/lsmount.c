@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
 	if(!access(conf_file2, R_OK)) { readconffile(conf_file2); }
 	free(conf_file2);
 	if(0 != parsecmd(argc, argv)) { exit(1); }
-	checkconf(); // TODO
+	checkconf(); // check if configuration is valid
 
 	if(NULL == mnt_file) {
 		mnt_file = MNT_FILE;
