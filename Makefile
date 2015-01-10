@@ -16,7 +16,7 @@ debug: CFLAGS += -g -Og -DDEBUG -Wextra -pedantic  -Wcast-qual -Wcast-align -Wfo
 debug: $(BIN)
 
 lsmount:   lsmount.o lsmgrid.o options.o
-	$(CC) $(LDLIBS) -o $@ $(OBJ) $(LDFLAGS)
+	$(CC) -o $@ $(OBJ) $(LDLIBS) $(LDFLAGS)
 lsmount.o: lsmount.c lsmount.h ansicodes.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 lsmgrid.o: lsmgrid.c lsmgrid.h
