@@ -18,14 +18,14 @@ OPTIONS
 -------
 *-a*, *--use_alignment* ::
 	use alignment
-*-c*, *--use_color* ::
+*-c*, *--use_color*[='auto'] ::
 	use colors
 *-d*, *--debug* ::
 	show debug outputs
-*-f*, *--file* ::
+*-f*, *--file* 'FILE' ::
 	use another input file
 *-h*, *--help* ::
-	show this help
+	show help and version
 *-l*, *--resolv_symlinks* ::
 	resolv symlinks
 *-r*, *--show_rootfs* ::
