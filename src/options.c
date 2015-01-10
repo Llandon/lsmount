@@ -51,14 +51,17 @@ int parsecmd(int argc, char** argv) {
 					if(!strcmp(optarg,"auto")) {
 						int* errret = NULL;
 						int ret = setupterm(NULL, 1, errret);
-
 						if(0 != ret) {
-							if(1 == *errret) {
-								fprintf(stderr, _("Terminal is a hardcopy type\n"));
-							}else if(0 == *errret) {
-								fprintf(stderr, _("Terminal could not be found, or it is a generic type\n"));
-							}else if(-1 == *errret) {
-								fprintf(stderr, _("terminfo database could not be found\n"));
+							if(NULL != errret) {
+								if(1 == *errret) {
+									fprintf(stderr, _("Terminal is a hardcopy type\n"));
+								}else if(0 == *errret) {
+									fprintf(stderr, _("Terminal could not be found, or it is a generic type\n"));
+								}else if(-1 == *errret) {
+									fprintf(stderr, _("terminfo database could not be found\n"));
+								}else{
+									fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
+								}
 							}else{
 								fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
 							}
