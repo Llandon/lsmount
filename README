@@ -8,6 +8,8 @@ Dependencies
 --------------------
 
 libc
+libconfig
+libtinfo
 
 --------------------
 Building
@@ -15,7 +17,9 @@ Building
 
 Dependencies
 debhelper (>=9)
+libc6-dev
 libconfig-dev (>=1.4.8)
+libtinfo-dev
 asciidoc
 xmlto
 

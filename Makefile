@@ -1,12 +1,13 @@
 .PHONY: all clean install uninstall manpage
 
-CC     = /usr/bin/gcc
+CC      = /usr/bin/gcc
 CFLAGS += -std=gnu99 -lconfig -D_GNU_SOURCE
 CFLAGS += `pkg-config --cflags libconfig`
 LDLIBS += `pkg-config --libs libconfig`
-BIN    = lsmount
-OBJ    = lsmount.o lsmgrid.o options.o
-VPATH  = src
+LDFLAGS = -ltermcap
+BIN     = lsmount
+OBJ     = lsmount.o lsmgrid.o options.o
+VPATH   = src
 
 all: CFLAGS += -O2 -Wall -Werror -pedantic
 all: $(BIN)
@@ -15,7 +16,7 @@ debug: CFLAGS += -g -Og -DDEBUG -Wextra -pedantic  -Wcast-qual -Wcast-align -Wfo
 debug: $(BIN)
 
 lsmount:   lsmount.o lsmgrid.o options.o
-	$(CC) $(LDLIBS) -o $@ $(OBJ)
+	$(CC) $(LDLIBS) -o $@ $(OBJ) $(LDFLAGS)
 lsmount.o: lsmount.c lsmount.h ansicodes.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 lsmgrid.o: lsmgrid.c lsmgrid.h
