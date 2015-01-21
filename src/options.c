@@ -12,28 +12,28 @@ int parsecmd(int argc, char** argv) {
 	int opt;
 
 	static struct option long_options[] = {
-		{"use_alignment",        no_argument,       NULL, 'a'},
-		{"dont_use_alignment",   no_argument,       NULL, 'A'},
-		{"use_color",            optional_argument, NULL, 'c'},
-		{"dont_use_color",       no_argument,       NULL, 'C'},
+		{"use-alignment",        no_argument,       NULL, 'a'},
+		{"dont-use-alignment",   no_argument,       NULL, 'A'},
+		{"use-color",            optional_argument, NULL, 'c'},
+		{"dont-use-color",       no_argument,       NULL, 'C'},
 		{"debug",                no_argument,       NULL, 'd'},
-		{"dont_debug",           no_argument,       NULL, 'D'},
-		{"file",                 required_argument, NULL, 'f'},
-		{"no_file",              no_argument,       NULL, 'F'},
+		{"dont-debug",           no_argument,       NULL, 'D'},
+		{"use-file",             required_argument, NULL, 'f'},
+		{"no-file",              no_argument,       NULL, 'F'},
 		{"help",                 no_argument,       NULL, 'h'},
-		{"dont_help",            no_argument,       NULL, 'H'},
-		{"resolv_symlinks",      no_argument,       NULL, 'l'},
-		{"dont_resolv_symlinks", no_argument,       NULL, 'L'},
-		{"show_rootfs",          no_argument,       NULL, 'r'},
-		{"dont_show_rootfs",     no_argument,       NULL, 'R'},
-		{"shrink_eighty",        no_argument,       NULL, 's'},
-		{"dont_shrink_eighty",   no_argument,       NULL, 'S'},
-		{"show_tmpfs",           no_argument,       NULL, 't'},
-		{"dont_show_tmpfs",      no_argument,       NULL, 'T'},
-		{"show_unused",          no_argument,       NULL, 'u'},
-		{"dont_show_unused",     no_argument,       NULL, 'U'},
-		{"print_vertical",       no_argument,       NULL, 'v'},
-		{"dont_print_vertical",  no_argument,       NULL, 'V'},
+		{"dont-help",            no_argument,       NULL, 'H'},
+		{"resolv-symlinks",      no_argument,       NULL, 'l'},
+		{"dont-resolv-symlinks", no_argument,       NULL, 'L'},
+		{"show-rootfs",          no_argument,       NULL, 'r'},
+		{"dont-show-rootfs",     no_argument,       NULL, 'R'},
+		{"shrink-eighty",        no_argument,       NULL, 's'},
+		{"dont-shrink-eighty",   no_argument,       NULL, 'S'},
+		{"show-tmpfs",           no_argument,       NULL, 't'},
+		{"dont-show-tmpfs",      no_argument,       NULL, 'T'},
+		{"show-unused",          no_argument,       NULL, 'u'},
+		{"dont-show-unused",     no_argument,       NULL, 'U'},
+		{"print-vertical",       no_argument,       NULL, 'v'},
+		{"dont-print-vertical",  no_argument,       NULL, 'V'},
 		{NULL, 0, NULL, '\0'}
 	};
 
@@ -171,30 +171,30 @@ int readconffile(const char* config_file) {
     if(config_lookup_bool(&cfg, "debug", &value)) {
         debug = (uint8_t)value;
     }
-    if(config_lookup_bool(&cfg, "use_color", &value)) {
+    if(config_lookup_bool(&cfg, "use-color", &value)) {
         use_color = (uint8_t)value;
     }   
-    if(config_lookup_bool(&cfg, "show_rootfs", &value)) {
+    if(config_lookup_bool(&cfg, "show-rootfs", &value)) {
         show_rootfs = (uint8_t)value;
     }   
-    if(config_lookup_bool(&cfg, "shrink_eighty", &value)) {
+    if(config_lookup_bool(&cfg, "shrink-eighty", &value)) {
         shrink_eighty = (uint8_t)value;
 		show_unused = 0;
     }   
-    if(config_lookup_bool(&cfg, "show_tmpfs", &value)) {
+    if(config_lookup_bool(&cfg, "show-tmpfs", &value)) {
         show_tmpfs = (uint8_t)value;
     }   
-    if(config_lookup_bool(&cfg, "show_unused", &value)) {
+    if(config_lookup_bool(&cfg, "show-unused", &value)) {
         if(shrink_eighty == 0) {
 			show_unused = (uint8_t)value;
 		}else{
 			show_unused = 0;
 		}
     }   
-    if(config_lookup_bool(&cfg, "resolve_symlinks", &value)) {
+    if(config_lookup_bool(&cfg, "resolve-symlinks", &value)) {
         resolve_symlinks = (uint8_t)value;
     }   
-    if(config_lookup_bool(&cfg, "use_alignment", &value)) {
+    if(config_lookup_bool(&cfg, "use-alignment", &value)) {
         use_alignment = (uint8_t)value;
     }   
     if(config_lookup_bool(&cfg, "vertical", &value)) {
@@ -224,17 +224,17 @@ void usage (int status) {
 	puts(_("Usage: lsmount [options]\n"
 	       "\n"
 	       "Options:\n"
-	       "  -a, --use_alignment          align columns\n"
-	       "  -c, --use_color              use colors\n"
+	       "  -a, --use-alignment          align columns\n"
+	       "  -c, --use-color              use colors\n"
 	       "  -d, --debug                  show debug outputs\n"
-	       "  -f, --file                   use another input file\n"
+	       "  -f, --use-file               use another input file\n"
 	       "  -h, --help                   show this help\n"
-	       "  -l, --resolv_symlinks        resolv device symlinks\n"
-	       "  -r, --show_rootfs            show rootfs mounts\n"
-	       "  -s, --shrink_eighty          try shrinking to 80 chars\n"
-	       "  -t, --show_tmpfs             show tmpfs mounts\n"
-	       "  -u, --show_unused            show unused columns\n"
-	       "  -v, --print_vertical         vertical output\n"
+	       "  -l, --resolv-symlinks        resolv device symlinks\n"
+	       "  -r, --show-rootfs            show rootfs mounts\n"
+	       "  -s, --shrink-eighty          try shrinking to 80 chars\n"
+	       "  -t, --show-tmpfs             show tmpfs mounts\n"
+	       "  -u, --show-unused            show unused columns\n"
+	       "  -v, --print-vertical         vertical output\n"
 	       "\n"
 	       "all short options can be inverted by using the uppercase letter,\n"
 	       "the longopts can be inverted by adding dont_ in front.\n"
