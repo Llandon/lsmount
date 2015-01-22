@@ -49,30 +49,7 @@ int parsecmd(int argc, char** argv) {
 			case 'c':
 				if(optarg) {
 					if(!strcmp(optarg,"auto")) {
-						int* errret = NULL;
-						int ret = setupterm(NULL, 1, errret);
-						if(0 != ret) {
-							if(NULL != errret) {
-								if(1 == *errret) {
-									fprintf(stderr, _("Terminal is a hardcopy type\n"));
-								}else if(0 == *errret) {
-									fprintf(stderr, _("Terminal could not be found, or it is a generic type\n"));
-								}else if(-1 == *errret) {
-									fprintf(stderr, _("terminfo database could not be found\n"));
-								}else{
-									fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
-								}
-							}else{
-								fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
-							}
-							use_color = 0;
-						}else{   
-							if(tigetnum("colors") >= 8) {
-								use_color = 1;
-							}else{
-								use_color = 0;
-							}
-						}
+						use_color = colorcap();
 					}else{
 						printf(_("unknown argument %s for option use_color(c)\n"), optarg);
 						exit(1);
@@ -218,6 +195,38 @@ int checkconf(void) {
 	}
 	*/
 	return 0;
+}
+
+int colorcap(void) {
+	int* errret = NULL;
+	int  ret    = setupterm(NULL, 1, errret);
+
+	if(0 != ret) {
+		if(NULL != errret) {
+			if(1 == *errret) {
+				fprintf(stderr, _("Terminal is a hardcopy type\n"));
+				return 0;
+			}else if(0 == *errret) {
+				fprintf(stderr, _("Terminal could not be found, or it is a generic type\n"));
+				return 0;
+			}else if(-1 == *errret) {
+				fprintf(stderr, _("terminfo database could not be found\n"));
+				return 0;
+			}else{
+				fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
+				return 0;
+			}
+		}else{
+			fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
+			return 0;
+		}
+	}else{   
+		if(tigetnum("colors") >= 8) {
+			return 1;
+		}else{
+			return 0;
+		}
+	}
 }
 
 void usage (int status) {
