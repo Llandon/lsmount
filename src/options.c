@@ -51,7 +51,7 @@ int parsecmd(int argc, char** argv) {
 					if(!strcmp(optarg,"auto")) {
 						use_color = colorcap();
 					}else{
-						printf(_("unknown argument %s for option use_color(c)\n"), optarg);
+						printf(_("unknown argument %s for option use-color(c)\n"), optarg);
 						exit(1);
 					}
 				}else{
@@ -246,7 +246,7 @@ void usage (int status) {
 	       "  -v, --print-vertical         vertical output\n"
 	       "\n"
 	       "all short options can be inverted by using the uppercase letter,\n"
-	       "the longopts can be inverted by adding dont_ in front.\n"
+	       "the longopts can be inverted by adding dont- in front.\n"
 	       "\n"
 	       "Version: v0.1.2\n"
 	       "License: ISC\n")
