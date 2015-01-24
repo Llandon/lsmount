@@ -209,7 +209,7 @@ int checkconf(void) {
 	return 0;
 }
 
-int colorcap(void) {
+uint8_t colorcap(void) {
 	int* errret = NULL;
 	int  ret    = setupterm(NULL, 1, errret);
 
@@ -217,25 +217,26 @@ int colorcap(void) {
 		if(NULL != errret) {
 			if(1 == *errret) {
 				fprintf(stderr, _("Terminal is a hardcopy type\n"));
-				return 0;
 			}else if(0 == *errret) {
 				fprintf(stderr, _("Terminal could not be found, or it is a generic type\n"));
-				return 0;
 			}else if(-1 == *errret) {
 				fprintf(stderr, _("terminfo database could not be found\n"));
-				return 0;
 			}else{
 				fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
-				return 0;
 			}
+			del_curterm(cur_term);
+			return 0;
 		}else{
 			fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
+			del_curterm(cur_term);
 			return 0;
 		}
 	}else{   
 		if(tigetnum("colors") >= 8) {
+			del_curterm(cur_term);
 			return 1;
 		}else{
+			del_curterm(cur_term);
 			return 0;
 		}
 	}

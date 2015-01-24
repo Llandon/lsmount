@@ -21,7 +21,7 @@ char* mnt_file;
 #endif
 
 int checkconf(void);
-int colorcap(void);
+uint8_t colorcap(void);
 int parsecmd(int argc, char** argv);
 int readconffile(const char* conf_file);
 void usage(int status);
