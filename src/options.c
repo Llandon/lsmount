@@ -132,6 +132,7 @@ int parsecmd(int argc, char** argv) {
 int readconffile(const char* config_file) {
     config_t cfg;
     int value;
+	const char* strvalue = NULL;
 
     config_init(&cfg);
 
@@ -150,7 +151,18 @@ int readconffile(const char* config_file) {
     }
     if(config_lookup_bool(&cfg, "use-color", &value)) {
         use_color = (uint8_t)value;
-    }   
+    }else if(config_lookup_string(&cfg, "use-color", &strvalue)) {
+		if(strvalue) {
+			if(!strcmp(strvalue,"auto")) {
+				use_color = colorcap();
+			}else{
+				printf(_("unknown argument %s for option use-color(c)\n"), strvalue);
+				exit(1);
+			}
+		}else{
+			use_color = 0;
+		}
+	}
     if(config_lookup_bool(&cfg, "show-rootfs", &value)) {
         show_rootfs = (uint8_t)value;
     }   
