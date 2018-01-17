@@ -85,11 +85,17 @@ int parsecmd(int argc, char** argv) {
 			case 's':
 				if(optarg) {
 					size_t optsize = strlen(optarg)+1;
+					if(NULL != to_skip) {
+						free(to_skip); // if set by conf
+					}
 					to_skip = (char*)malloc(optsize);
 					strncpy(to_skip, optarg,optsize);
 				}
 				break;
 			case 'S':
+				if(NULL != to_skip) {
+					free(to_skip); // if set by conf
+				}
 				to_skip = calloc(1,1); // empty string
 				break;
 			case 'u':
