@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
 	// create grid
 	t_grid* grid = grid_create(9, 40);
 	// load data to grid
-	if(0 != grid_load_from_buf(grid, filebuf)) {
+	if(!grid_load_from_buf(grid, filebuf)) {
 		fprintf(stderr, _("load to grid failed (%s)\n"), strerror(errno));
 		exit(1);
 	}

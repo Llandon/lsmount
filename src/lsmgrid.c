@@ -126,7 +126,12 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 			++rows;
 		}
 	}
-	grid->rows = rows;
-	grid->columns = elem_cnt/rows; // FIXME should be fix but not sure FIXME devide by 0
-	return 0;
+	if(rows > 0) {
+		grid->rows = rows;
+		grid->columns = elem_cnt/rows;
+	}else{
+		fprintf(stderr, _("Can't load at least one row from buffer\n"));
+		return 0;
+	}
+	return 1;
 }
