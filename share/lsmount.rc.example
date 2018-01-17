@@ -1,9 +1,9 @@
 use-alignment    = true;
-use-color        = false;
+use-color        = true;
 debug            = false;
 resolve-symlinks = true;
-show-rootfs      = false;
 shrink-eighty    = false;
-show-tmpfs       = false;
 show-unused      = false;
 print-vertical   = false;
+set-colors       = "red,green,blue,yellow,white,white";
+skip             = "sysfs,proc,udev,sunrpc,devpts,tmpfs,cgroup,pstore,systemd-1,mqueue,securityfs,debugfs,configfs,hugetlbfs,fusectl";

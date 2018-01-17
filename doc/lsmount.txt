@@ -22,22 +22,23 @@ OPTIONS
 	use colors
 *-d*, *--debug* ::
 	show debug outputs
+*-e*, *--shrink_eighty* ::
+	try shrinking to 80 chars
 *-f*, *--file* 'FILE' ::
 	use another input file
 *-h*, *--help* ::
 	show help and version
 *-l*, *--resolv_symlinks* ::
 	resolv symlinks
-*-r*, *--show_rootfs* ::
-	show rootfs
-*-s*, *--shrink_eighty* ::
-	try shrinking to 80 chars
-*-t*, *--show_tmpfs* ::
-	show tmpfs
+*-s*, *--skip*='fstype1','fstype2',... ::
+	skip all lines where fstype is part of comma seperated list
 *-u*, *--show_unused* ::
 	show unused columns
 *-v*, *--print_vertical* ::
 	vertical output
+*-x*, *--set-colors*='color1',...,'color6' ::
+	set colors of all columns
+	possible colors are black, red, green, yellow, blue, magenta, cyan, white
 
 all short options can be inverted by using the upercase letter,
 the longopts can be inverted by adding dont- in front.

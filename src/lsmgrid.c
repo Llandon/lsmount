@@ -7,9 +7,10 @@
 #include "ansicodes.h"
 #include "lsmount.h"
 #include "lsmgrid.h"
+#include "lsmcolors.h"
+#include "helper.h"
 
-t_grid* grid_create(size_t columns, size_t rows, size_t* max_col_len, 
-                    size_t* max_sep_len) {
+t_grid* grid_create(size_t columns, size_t rows) {
 
 	tofree = NULL;
 	tofree_c = 0;
@@ -32,8 +33,6 @@ t_grid* grid_create(size_t columns, size_t rows, size_t* max_col_len,
 
 	grid->columns = columns;
 	grid->rows    = rows;
-	grid->max_col_len = max_col_len;
-	grid->max_sep_len = max_sep_len;
 	
 	for(size_t i = 0; i < columns * rows; ++i) {
 		grid->elem[i].value       = "N/A";
@@ -52,200 +51,86 @@ void grid_destroy(t_grid* grid) {
 	free(grid);
 }
 
-int is_symlink(const char* filename) {
-	struct stat p_statbuf;
-
-	if(lstat(filename, &p_statbuf)) {
-		// no file => no symlink
-		return 0;
-	}else{
-		if(S_ISLNK(p_statbuf.st_mode) == 1) {
-			return 1;
-		}else{
-			return 0;
-		}
-	}
-}
-
 void grid_print(t_grid* grid) {
-	const size_t columns = grid->columns;
-	const size_t rows    = grid->rows;
+	size_t rows = grid->rows;
+	size_t cols = grid->columns;
 
-	if(resolve_symlinks == 1) {
-		size_t resolv_c = 1;
+	if(use_alignment == 1) { grid_analyse(grid); }
 
-		for(size_t k=0; k<rows; ++k) {
-			if(is_symlink(grid->elem[k*columns].value)) {
-				char buf[PATH_MAX] = "";
+	for(size_t r=0; r<rows; ++r) {
+		for(size_t c=0; c<cols; ++c) {
+			if(show_unused == 0 && c>3) { printf("\n"); break; }
+			if(use_color == 1) { printf("%s", colors[c]); }
 
-				if(NULL != realpath(grid->elem[k*columns].value, buf)) {
-					char* dest = malloc(sizeof(char)*strlen(buf)+1);
-
-					strncpy(dest, buf, strlen(buf)+1);
-					grid->elem[k*columns].value = dest;
-
-					if(NULL == tofree) {
-						tofree = malloc(sizeof(char*));
-
-						if(NULL == tofree) {
-							fprintf(stderr, _("malloc failed\n"));
-							exit(1);
-						}
-					}else{
-						char** np = realloc(tofree, resolv_c*sizeof(char*));
-
-						if(NULL == np) {
-							fprintf(stderr, _("realloc failed\n"));
-							exit(1);
-						}else{
-							tofree = np;
-						}
-					}
-
-					tofree[resolv_c-1] = dest;
-					++tofree_c;
-					++resolv_c;
-				}
-			}
-		}
-
-		// recalculate maximum column length
-		size_t mcl_l=0;
-		for(size_t k=0; k<rows; ++k) {
-			if(NULL != grid->elem[k*columns].value) {
-				if(mcl_l < strlen(grid->elem[k*columns].value)) {
-					mcl_l = strlen(grid->elem[k*columns].value);
-				}
-			}
-		}
-		grid->max_col_len[0] = mcl_l;
-	}
-
-	// column colors array
-	const char* colors[6] = {
-		COLOR1,
-		COLOR2, 
-		COLOR3, 
-		COLOR4, 
-		COLOR5,
-		COLOR6
-	};
-
-	for(size_t i=0; i<rows; ++i) {
-		if(show_tmpfs==0 && !strcmp("tmpfs",grid->elem[i*columns+2].value)) {
-			continue; 
-		}
-		if(show_rootfs==0 && !strcmp("rootfs",grid->elem[i*columns+2].value)) {
-			continue; 
-		}
-
-		for(size_t j=0; j<columns; ++j) {
-			if(show_unused == 0 && j >= 4) { break; }
-			if(shrink_eighty == 1 && vertical == 0 && j>=4) { break; }
-			if(use_color == 1) { printf("%s",colors[j]); }
-			if(vertical == 1) {
-				printf("%s\n", grid->elem[i*columns+j].value);
-			}else{
-				if(shrink_eighty == 1 && 3 == j) {
-					size_t space = 80 - (
-						grid->max_col_len[0]+
-						grid->max_col_len[1]+
-						grid->max_col_len[2]+
-						4
-					);
-					grid_print_split(grid->elem[i*columns+j].value,",",space);
-				}else{
-					printf("%s ", grid->elem[i*columns+j].value);
-				}
-			}
-
-			size_t used_columns = columns-2;
-
-			if(show_unused == 1) { used_columns = columns; }
-
-			// dont fill up after last column	
-			if(use_alignment == 1 && vertical != 1 && j < used_columns-1) {
-				if(0 == shrink_eighty || j < 3) {
-					size_t diff = grid->max_col_len[j] - 
-						strlen(grid->elem[i*columns+j].value);
-					for(size_t l=0; l<diff; ++l) {
+			//if(strstr(to_hide, grid->elem[r*cols+c].value)) { break; }
+//			if(1==resolve_symlinks && 0==c && is_symlink(grid->elem[r*cols+c].value)) {
+//				printf("blubb ");
+//			}else{
+				printf("%s ", grid->elem[r*cols+c].value);
+//			}
+			if(use_alignment == 1) {
+				size_t delta = 
+					column_length[c] - strlen(grid->elem[r*cols+c].value);
+				if(delta>0) {
+					for(size_t d=0; d<delta; ++d) {
 						putchar(' ');
 					}
-				}else{
-					/* the case use_alignment + show_unused
-					   doesn't make sense => ignore */
 				}
 			}
-			if(use_color == 1) { printf(ANSI_ESC_RESET); }
+			if(vertical == 1) { putchar('\n'); };
+
+			if(c == cols-1) { printf("\n"); }
 		}
-		putchar('\n');
+	}
+	if(use_color == 1) { printf(ANSI_ESC_RESET); }
+}
+
+void grid_analyse(t_grid* grid) {
+	size_t rows = grid->rows;
+	size_t cols = grid->columns;
+
+	for(size_t r=0; r<rows; ++r) {
+		for(size_t c=0; c<cols; ++c) {
+			if(strlen(grid->elem[r*cols+c].value)>column_length[c]) {
+				column_length[c] = strlen(grid->elem[r*cols+c].value);
+			}
+		}
 	}
 }
 
-int grid_print_split(char* line, const char* delim, size_t max) {
-	if(
-		NULL == line || !strcmp("",line) || 
-		NULL == delim || !strcmp("",delim) ||
-		max  == 0
-	) {
-		return -1;
-	}
+int grid_load_from_buf(t_grid* grid, char* buf) {
+	size_t rows     = 0;
+	size_t elem_cnt = 0;
 
-	char* token  = NULL;
-	char* lcpy   = strdup(line);
-	char* save_lcpy_ptr = lcpy;
+	char *line_r = NULL;
+	char *line   = strtok_r(buf, "\n", &line_r);
 
-	uint8_t tokcnt  = 0; // tokens
-	size_t  chrpl   = 0; // chars per line
-	size_t  linecnt = 1; // line counter
-    
-	while (NULL != (token = strsep(&lcpy, delim))) {
-		if(chrpl+strlen(token)+1 > UINT16_MAX-1) { break; }
-		size_t chrpl_old = chrpl; // save value
-		chrpl+=strlen(token)+1;
-
-		if(chrpl < max) { // enough space for next token
-			if(0 != tokcnt) { putchar(','); }
-			printf("%s",token);
-		}else{ // begin new line
-			if(0 != tokcnt) { putchar(','); }
-			
-			if(1==linecnt) {
-				for(size_t i=0; i<max-chrpl_old; ++i) { putchar(' '); }
-				if(1 == show_unused && 1 == use_color) { printf(COLOR5); }
-				if(1 == show_unused) { printf("%s %s"," 0","0"); }
-				if(1 == show_unused && 1 == use_color) { printf(COLOR4); }
-			}
-			++linecnt;
-
-			putchar('\n');
-			chrpl=0;
-			chrpl+=strlen(token)+1;
-			if(chrpl < max) { // token < max => can fill up
-				for(uint8_t k=0; k<80-max-1; ++k) {
-					putchar(' ');
-				}
-				printf("%s",token);
-			}else{ // token > max
-				if(chrpl <= 80) { // token <= 80 chars
-					for(uint8_t k=0; k<80-chrpl; ++k) {
-						putchar(' ');
+	while( line != NULL ) {
+		char *save_pointer = NULL; // primary
+		char *elem_of_line = strtok_r(line, " ", &save_pointer);
+		if(NULL != to_skip && strstr(to_skip, elem_of_line)) { // FIXME undefined behaviour
+			line = strtok_r(NULL, "\n", &line_r);
+		}else{
+			while( elem_of_line != NULL ) {
+				if(resolve_symlinks == 1 && is_symlink(elem_of_line)) {
+					char resolvBuf[PATH_MAX] = "";
+					if(NULL != realpath(elem_of_line, resolvBuf)) {
+						char *dest = malloc(sizeof(char)*strlen(resolvBuf)+1); // FIXME Free me on grid destroy
+						strncpy(dest, resolvBuf, strlen(resolvBuf)+1);
+						grid->elem[elem_cnt].value = dest;
 					}
-					printf("%s",token);
 				}else{
-					printf("%s",token);
-					if(1 == debug ) {
-						fprintf(stderr,_("string length of \"%s\" > 80\n"),token);
-					}
+					grid->elem[elem_cnt].value = elem_of_line;
 				}
+				elem_of_line = strtok_r(NULL, " ", &save_pointer);
+				++elem_cnt;
 			}
+
+			line = strtok_r(NULL, "\n", &line_r);
+			++rows;
 		}
-		if(UINT8_MAX-1 == tokcnt) { 
-			fprintf(stderr, _("to many tokens\n"));
-			break;
-		}
-		++tokcnt;
 	}
-	free(save_lcpy_ptr);
+	grid->rows = rows;
+	grid->columns = elem_cnt/rows; // FIXME should be fix but not sure FIXME devide by 0
 	return 0;
 }

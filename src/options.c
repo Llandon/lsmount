@@ -3,41 +3,43 @@
 #include <unistd.h>
 #include <libconfig.h>
 #include <getopt.h>
+#include <curses.h> // because terminfo manpages said so...
 #include <term.h>
 #include <string.h>
 #include "lsmount.h"
 #include "options.h"
+#include "lsmcolors.h"
 
 int parsecmd(int argc, char** argv) {
 	int opt;
 
 	static struct option long_options[] = {
-		{"use-alignment",        no_argument,       NULL, 'a'},
-		{"dont-use-alignment",   no_argument,       NULL, 'A'},
-		{"use-color",            optional_argument, NULL, 'c'},
-		{"dont-use-color",       no_argument,       NULL, 'C'},
-		{"debug",                no_argument,       NULL, 'd'},
-		{"dont-debug",           no_argument,       NULL, 'D'},
-		{"use-file",             required_argument, NULL, 'f'},
-		{"no-file",              no_argument,       NULL, 'F'},
-		{"help",                 no_argument,       NULL, 'h'},
-		{"dont-help",            no_argument,       NULL, 'H'},
-		{"resolv-symlinks",      no_argument,       NULL, 'l'},
-		{"dont-resolv-symlinks", no_argument,       NULL, 'L'},
-		{"show-rootfs",          no_argument,       NULL, 'r'},
-		{"dont-show-rootfs",     no_argument,       NULL, 'R'},
-		{"shrink-eighty",        no_argument,       NULL, 's'},
-		{"dont-shrink-eighty",   no_argument,       NULL, 'S'},
-		{"show-tmpfs",           no_argument,       NULL, 't'},
-		{"dont-show-tmpfs",      no_argument,       NULL, 'T'},
-		{"show-unused",          no_argument,       NULL, 'u'},
-		{"dont-show-unused",     no_argument,       NULL, 'U'},
-		{"print-vertical",       no_argument,       NULL, 'v'},
-		{"dont-print-vertical",  no_argument,       NULL, 'V'},
+		{"use-alignment",           no_argument,       NULL, 'a'},
+		{"dont-use-alignment",      no_argument,       NULL, 'A'},
+		{"use-color",               optional_argument, NULL, 'c'},
+		{"dont-use-color",          no_argument,       NULL, 'C'},
+		{"debug",                   no_argument,       NULL, 'd'},
+		{"dont-debug",              no_argument,       NULL, 'D'},
+		{"shrink-eighty",           no_argument,       NULL, 'e'},
+		{"dont-shrink-eighty",      no_argument,       NULL, 'E'},
+		{"use-file",                required_argument, NULL, 'f'},
+		{"no-file",                 no_argument,       NULL, 'F'},
+		{"help",                    no_argument,       NULL, 'h'},
+		{"dont-help",               no_argument,       NULL, 'H'},
+		{"resolv-symlinks",         no_argument,       NULL, 'l'},
+		{"dont-resolv-symlinks",    no_argument,       NULL, 'L'},
+		{"skip",                    required_argument, NULL, 's'},
+		{"dont-skip",               no_argument,       NULL, 'S'},
+		{"show-unused",             no_argument,       NULL, 'u'},
+		{"dont-show-unused",        no_argument,       NULL, 'U'},
+		{"print-vertical",          no_argument,       NULL, 'v'},
+		{"dont-print-vertical",     no_argument,       NULL, 'V'},
+		{"set-colors",              required_argument, NULL, 'x'},
+		{"dont-set-colors",         no_argument,       NULL, 'X'},
 		{NULL, 0, NULL, '\0'}
 	};
 
-	while((opt = getopt_long(argc, argv, "aAcCdDf:FhHlLrRsStTuUvV", 
+	while((opt = getopt_long(argc, argv, "aAcCdDeEf:FhHlLs:SuUvVx:X", 
 	                         long_options, NULL)) != -1) {
 		switch(opt) {
 			case 'a':
@@ -47,13 +49,8 @@ int parsecmd(int argc, char** argv) {
 				use_alignment = 0;
 				break;
 			case 'c':
-				if(optarg) {
-					if(!strcmp(optarg,"auto")) {
-						use_color = colorcap();
-					}else{
-						printf(_("unknown argument %s for option use-color(c)\n"), optarg);
-						exit(1);
-					}
+				if(argv && argv[optind] && strcmp(argv[optind],"auto") == 0) {
+					use_color = colorcap();
 				}else{
 					use_color = 1;
 				}
@@ -66,6 +63,13 @@ int parsecmd(int argc, char** argv) {
 				break;
 			case 'D':
 				debug = 0;
+				break;
+			case 'e':
+				shrink_eighty = 1;
+				show_unused = 0;
+				break;
+			case 'E':
+				shrink_eighty = 0;
 				break;
 			case 'f':
 				mnt_file = optarg;
@@ -87,24 +91,15 @@ int parsecmd(int argc, char** argv) {
 			case 'L':
 				resolve_symlinks = 0;
 				break;
-			case 'r':
-				show_rootfs = 1;
-				break;
-			case 'R':
-				show_rootfs = 0;
-				break;
 			case 's':
-				shrink_eighty = 1;
-				show_unused = 0;
+				if(optarg) {
+					size_t optsize = strlen(optarg)+1;
+					to_skip = (char*)malloc(optsize); //FIXME free me
+					strncpy(to_skip, optarg,optsize);
+				}
 				break;
 			case 'S':
-				shrink_eighty = 0;
-				break;
-			case 't':
-				show_tmpfs = 1;
-				break;
-			case 'T':
-				show_tmpfs = 0;
+				to_skip = "";
 				break;
 			case 'u':
 				if(1 == shrink_eighty) {
@@ -121,6 +116,36 @@ int parsecmd(int argc, char** argv) {
 				break;
 			case 'V':
 				vertical = 0;
+				break;
+			case 'x':
+				if(optarg) {
+					char* value;
+					char* subopts;
+					char* const tokens[] = {
+						"use-color",
+						NULL
+					};
+
+					subopts = optarg;
+					uint8_t i=0;
+
+					while(*subopts != '\0') {
+						getsubopt(&subopts, tokens, &value);
+						colors[i] = colortoesc(value);
+						++i;
+					}
+
+					if(i == 1) {
+						printf(_("unknown argument for option set-color(c)\n"));
+						exit(1);
+					}else if(i != 6) {
+						printf(_("wrong number of arguments for option use-color(c)\n"));
+						exit(1);
+					}
+				}
+				break;
+			case 'X':
+				initcolors();
 				break;
 			default:
 				usage(1);
@@ -149,6 +174,12 @@ int readconffile(const char* config_file) {
     if(config_lookup_bool(&cfg, "debug", &value)) {
         debug = (uint8_t)value;
     }
+	if(config_lookup_string(&cfg, "skip", &strvalue)) {
+		if(strvalue) {
+			to_skip = (char*)malloc(strlen(strvalue)+1); //FIXME free me
+			strcpy(to_skip,strvalue);
+		}
+	}
     if(config_lookup_bool(&cfg, "use-color", &value)) {
         use_color = (uint8_t)value;
     }else if(config_lookup_string(&cfg, "use-color", &strvalue)) {
@@ -163,15 +194,24 @@ int readconffile(const char* config_file) {
 			use_color = 0;
 		}
 	}
-    if(config_lookup_bool(&cfg, "show-rootfs", &value)) {
-        show_rootfs = (uint8_t)value;
-    }   
+	if(config_lookup_string(&cfg, "set-colors", &strvalue)) {
+		if(strvalue) {
+			uint16_t i = 0;
+			char* strvalue_cpy = strdup(strvalue);
+			char* token = NULL;
+			
+			token = strtok(strvalue_cpy, ",");
+			while(NULL != token) {
+				colors[i] = colortoesc(token);
+				token = strtok(NULL, ",");
+				++i;
+			}
+			free(strvalue_cpy);
+		}
+	}
     if(config_lookup_bool(&cfg, "shrink-eighty", &value)) {
         shrink_eighty = (uint8_t)value;
 		show_unused = 0;
-    }   
-    if(config_lookup_bool(&cfg, "show-tmpfs", &value)) {
-        show_tmpfs = (uint8_t)value;
     }   
     if(config_lookup_bool(&cfg, "show-unused", &value)) {
         if(shrink_eighty == 0) {
@@ -211,7 +251,7 @@ int checkconf(void) {
 
 uint8_t colorcap(void) {
 	int* errret = NULL;
-	int  ret    = setupterm(NULL, 1, errret);
+	int  ret    = setupterm(NULL, 1, errret); // will leak mem (curses sucks)
 
 	if(0 != ret) {
 		if(NULL != errret) {
@@ -249,20 +289,21 @@ void usage (int status) {
 	       "  -a, --use-alignment          align columns\n"
 	       "  -c, --use-color              use colors\n"
 	       "  -d, --debug                  show debug outputs\n"
+	       "  -e, --shrink-eighty          try shrinking to 80 chars\n"
 	       "  -f, --use-file               use another input file\n"
 	       "  -h, --help                   show this help\n"
 	       "  -l, --resolv-symlinks        resolv device symlinks\n"
-	       "  -r, --show-rootfs            show rootfs mounts\n"
-	       "  -s, --shrink-eighty          try shrinking to 80 chars\n"
-	       "  -t, --show-tmpfs             show tmpfs mounts\n"
+	       "  -s, --skip                   skip filesystems\n"
 	       "  -u, --show-unused            show unused columns\n"
 	       "  -v, --print-vertical         vertical output\n"
+	       "  -x, --set-colors             set output colors\n"
 	       "\n"
 	       "all short options can be inverted by using the uppercase letter,\n"
 	       "the longopts can be inverted by adding dont- in front.\n"
 	       "\n"
-	       "Version: v0.1.2\n"
+	       "Version: v0.2.0\n"
 	       "License: ISC\n")
 	);
+	free(to_skip);
 	exit(status);
 }
