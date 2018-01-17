@@ -55,7 +55,7 @@ Syntax: option = [false|true|"STRING"];
 
 AUTHOR
 ------
-*lsmount* is written by Andreas Schwarz *contact:* a.schwarz_dev@dntw.de
+*lsmount* is written by Andreas Schwarz *contact:* contact@lsmount.org
 
 RESOURCES
 ---------
