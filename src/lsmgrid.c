@@ -62,12 +62,8 @@ void grid_print(t_grid* grid) {
 			if(show_unused == 0 && c>3) { printf("\n"); break; }
 			if(use_color == 1) { printf("%s", colors[c]); }
 
-			//if(strstr(to_hide, grid->elem[r*cols+c].value)) { break; }
-//			if(1==resolve_symlinks && 0==c && is_symlink(grid->elem[r*cols+c].value)) {
-//				printf("blubb ");
-//			}else{
-				printf("%s ", grid->elem[r*cols+c].value);
-//			}
+			printf("%s ", grid->elem[r*cols+c].value);
+
 			if(use_alignment == 1) {
 				size_t delta = 
 					column_length[c] - strlen(grid->elem[r*cols+c].value);

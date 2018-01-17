@@ -25,7 +25,6 @@ int main(int argc, char** argv) {
 	// init parameter variables
 	debug            = 0;
 	use_color        = 0;
-	shrink_eighty    = 0;
 	show_unused      = 0;
 	resolve_symlinks = 0;
 	use_alignment    = 0;
@@ -49,7 +48,6 @@ int main(int argc, char** argv) {
 	if(!access(conf_file2, R_OK)) { readconffile(conf_file2); }
 	free(conf_file2);
 	if(0 != parsecmd(argc, argv)) { exit(1); }
-	checkconf(); // check if configuration is valid
 
 	if(NULL == mnt_file) {
 		mnt_file = MNT_FILE;

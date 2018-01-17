@@ -6,7 +6,6 @@
 // parameter variables
 uint8_t debug;
 uint8_t use_color;
-uint8_t shrink_eighty;
 uint8_t show_unused;
 uint8_t resolve_symlinks;
 uint8_t use_alignment;

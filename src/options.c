@@ -20,8 +20,6 @@ int parsecmd(int argc, char** argv) {
 		{"dont-use-color",          no_argument,       NULL, 'C'},
 		{"debug",                   no_argument,       NULL, 'd'},
 		{"dont-debug",              no_argument,       NULL, 'D'},
-		{"shrink-eighty",           no_argument,       NULL, 'e'},
-		{"dont-shrink-eighty",      no_argument,       NULL, 'E'},
 		{"use-file",                required_argument, NULL, 'f'},
 		{"no-file",                 no_argument,       NULL, 'F'},
 		{"help",                    no_argument,       NULL, 'h'},
@@ -39,7 +37,7 @@ int parsecmd(int argc, char** argv) {
 		{NULL, 0, NULL, '\0'}
 	};
 
-	while((opt = getopt_long(argc, argv, "aAcCdDeEf:FhHlLs:SuUvVx:X", 
+	while((opt = getopt_long(argc, argv, "aAcCdDf:FhHlLs:SuUvVx:X", 
 	                         long_options, NULL)) != -1) {
 		switch(opt) {
 			case 'a':
@@ -64,13 +62,6 @@ int parsecmd(int argc, char** argv) {
 			case 'D':
 				debug = 0;
 				break;
-			case 'e':
-				shrink_eighty = 1;
-				show_unused = 0;
-				break;
-			case 'E':
-				shrink_eighty = 0;
-				break;
 			case 'f':
 				mnt_file = optarg;
 				use_other_file = 1;
@@ -94,7 +85,7 @@ int parsecmd(int argc, char** argv) {
 			case 's':
 				if(optarg) {
 					size_t optsize = strlen(optarg)+1;
-					to_skip = (char*)malloc(optsize); //FIXME free me
+					to_skip = (char*)malloc(optsize);
 					strncpy(to_skip, optarg,optsize);
 				}
 				break;
@@ -102,11 +93,7 @@ int parsecmd(int argc, char** argv) {
 				to_skip = "";
 				break;
 			case 'u':
-				if(1 == shrink_eighty) {
-					show_unused = 0;
-				}else{
-					show_unused = 1;
-				}
+				show_unused = 1;
 				break;
 			case 'U': 
 				show_unused = 0;
@@ -176,7 +163,7 @@ int readconffile(const char* config_file) {
     }
 	if(config_lookup_string(&cfg, "skip", &strvalue)) {
 		if(strvalue) {
-			to_skip = (char*)malloc(strlen(strvalue)+1); //FIXME free me
+			to_skip = (char*)malloc(strlen(strvalue)+1);
 			strcpy(to_skip,strvalue);
 		}
 	}
@@ -209,16 +196,8 @@ int readconffile(const char* config_file) {
 			free(strvalue_cpy);
 		}
 	}
-    if(config_lookup_bool(&cfg, "shrink-eighty", &value)) {
-        shrink_eighty = (uint8_t)value;
-		show_unused = 0;
-    }   
     if(config_lookup_bool(&cfg, "show-unused", &value)) {
-        if(shrink_eighty == 0) {
-			show_unused = (uint8_t)value;
-		}else{
-			show_unused = 0;
-		}
+		show_unused = (uint8_t)value;
     }   
     if(config_lookup_bool(&cfg, "resolve-symlinks", &value)) {
         resolve_symlinks = (uint8_t)value;
@@ -230,22 +209,6 @@ int readconffile(const char* config_file) {
         vertical = (uint8_t)value;
     }
 	config_destroy(&cfg);
-	return 0;
-}
-
-int checkconf(void) {
-	// TODO check if config makes sense
-    // for now it isn't be necessary 
-	/*
-	if(show_unused == 1 && shrink_eighty == 1) {
-		printf(_("compining -u and -s isn't possible\n"));
-		exit(1);
-	}
-	if(vertical == 1 && shrink_eighty == 1) {
-		printf(_("compining -v and -s isn't possible\n"));
-		exit(1);
-	}
-	*/
 	return 0;
 }
 
@@ -289,7 +252,6 @@ void usage (int status) {
 	       "  -a, --use-alignment          align columns\n"
 	       "  -c, --use-color              use colors\n"
 	       "  -d, --debug                  show debug outputs\n"
-	       "  -e, --shrink-eighty          try shrinking to 80 chars\n"
 	       "  -f, --use-file               use another input file\n"
 	       "  -h, --help                   show this help\n"
 	       "  -l, --resolv-symlinks        resolv device symlinks\n"
