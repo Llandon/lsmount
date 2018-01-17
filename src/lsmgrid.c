@@ -73,9 +73,15 @@ void grid_print(t_grid* grid) {
 					}
 				}
 			}
-			if(vertical == 1) { putchar('\n'); };
-
-			if(c == cols-1) { printf("\n"); }
+			if(
+				(
+					vertical == 1 && 
+					(
+						(c != cols-1 && show_unused == 1) || 
+						(c != cols-3 && show_unused == 0)
+					)
+				) || (c == cols-1 && show_unused == 1)
+			) { putchar('\n'); };
 		}
 	}
 	if(use_color == 1) { printf(ANSI_ESC_RESET); }
