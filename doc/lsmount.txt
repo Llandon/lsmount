@@ -22,8 +22,6 @@ OPTIONS
 	use colors
 *-d*, *--debug* ::
 	show debug outputs
-*-e*, *--shrink_eighty* ::
-	try shrinking to 80 chars
 *-f*, *--file* 'FILE' ::
 	use another input file
 *-h*, *--help* ::
