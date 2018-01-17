@@ -130,9 +130,11 @@ int parsecmd(int argc, char** argv) {
 
 					if(i == 1) {
 						printf(_("unknown argument for option set-color(c)\n"));
+						if(NULL != to_skip) { free(to_skip); }
 						exit(1);
 					}else if(i != 6) {
 						printf(_("wrong number of arguments for option use-color(c)\n"));
+						if(NULL != to_skip) { free(to_skip); }
 						exit(1);
 					}
 				}
