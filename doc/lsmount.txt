@@ -45,11 +45,8 @@ CONFIGURATION
 -------------
 configuration files /etc/lsmount.rc, ~/.config/lsmount.rc
 
-Available Options are debug, use-color, show-rootfs, shrink-eighty, 
-show-tmpfs, show-unused, resolv-symlinks, use-alignment, vertical as
-described above.
-
-shrink_eighty forces show_unused = false;
+Available Options are debug, skip, use-color, set-colors, show-unused, 
+resolv-symlinks, use-alignment, vertical as described above.
 
 Syntax: option = [false|true|"STRING"];
 
