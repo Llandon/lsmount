@@ -90,7 +90,7 @@ int parsecmd(int argc, char** argv) {
 				}
 				break;
 			case 'S':
-				to_skip = "";
+				to_skip = calloc(1,1); // empty string
 				break;
 			case 'u':
 				show_unused = 1;
