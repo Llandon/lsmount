@@ -108,10 +108,27 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 			line = strtok_r(NULL, "\n", &line_r);
 		}else{
 			while( elem_of_line != NULL ) {
+
 				if(resolve_symlinks == 1 && is_symlink(elem_of_line)) {
 					char resolvBuf[PATH_MAX] = "";
 					if(NULL != realpath(elem_of_line, resolvBuf)) {
-						char *dest = malloc(sizeof(char)*strlen(resolvBuf)+1); // FIXME Free me on grid destroy
+						char *dest = malloc(sizeof(char)*strlen(resolvBuf)+1);
+						if(NULL == tofree) {
+							tofree = malloc(sizeof(char*));
+							if(NULL == tofree) {
+								fprintf(stderr, _("malloc failed\n"));
+								exit(1);
+							}
+						}else{
+							char** np = realloc(tofree, (tofree_c+1)*sizeof(char*));
+							if(NULL == np) {
+								fprintf(stderr, _("realloc failed\n"));
+								exit(1);
+							}else{
+								tofree = np; 
+							}
+						}
+						tofree[tofree_c++] = dest;
 						strncpy(dest, resolvBuf, strlen(resolvBuf)+1);
 						grid->elem[elem_cnt].value = dest;
 					}
