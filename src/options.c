@@ -21,7 +21,7 @@ int parsecmd(int argc, char** argv) {
 		{"debug",                   no_argument,       NULL, 'd'},
 		{"dont-debug",              no_argument,       NULL, 'D'},
 		{"use-file",                required_argument, NULL, 'f'},
-		{"no-file",                 no_argument,       NULL, 'F'},
+		{"dont-use-file",           no_argument,       NULL, 'F'},
 		{"help",                    no_argument,       NULL, 'h'},
 		{"dont-help",               no_argument,       NULL, 'H'},
 		{"resolv-symlinks",         no_argument,       NULL, 'l'},
