@@ -262,7 +262,7 @@ void usage (int status) {
 	       "  -f, --use-file               use another input file\n"
 	       "  -h, --help                   show this help\n"
 	       "  -l, --resolv-symlinks        resolv device symlinks\n"
-	       "  -s, --skip                   skip filesystems\n"
+	       "  -s, --skip                   skip devices\n"
 	       "  -u, --show-unused            show unused columns\n"
 	       "  -v, --print-vertical         vertical output\n"
 	       "  -x, --set-colors             set output colors\n"
