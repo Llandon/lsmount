@@ -16,9 +16,9 @@ options.
 
 OPTIONS
 -------
-*-a*, *--use_alignment* ::
+*-a*, *--use-alignment* ::
 	use alignment
-*-c*, *--use_color*[='auto'] ::
+*-c*, *--use-color*[='auto'] ::
 	use colors
 *-d*, *--debug* ::
 	show debug outputs
@@ -26,13 +26,13 @@ OPTIONS
 	use another input file
 *-h*, *--help* ::
 	show help and version
-*-l*, *--resolv_symlinks* ::
+*-l*, *--resolv-symlinks* ::
 	resolv symlinks
 *-s*, *--skip*='dev1','dev2',... ::
 	skip all lines where device is part of comma seperated list
-*-u*, *--show_unused* ::
+*-u*, *--show-unused* ::
 	show unused columns
-*-v*, *--print_vertical* ::
+*-v*, *--print-vertical* ::
 	vertical output
 *-x*, *--set-colors*='color1',...,'color6' ::
 	set colors of all columns
