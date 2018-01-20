@@ -20,7 +20,9 @@ int is_symlink(const char* filename) {
 	}
 }
 
-char* read_file_to_buf(const char* file, size_t filebuf_size) {
+char* read_file_to_buf(const char* file) {
+	size_t filebuf_size = 1024; // initial size
+
 	// open read only file stream
 	FILE *stream = fopen(file, "r");
 	if(NULL == stream) {

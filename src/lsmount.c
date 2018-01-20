@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
 	}
 
 	// read file to buffer
-	char* filebuf = read_file_to_buf(mnt_file, 1024);
+	char* filebuf = read_file_to_buf(mnt_file);
 
 	// create grid
 	t_grid* grid = grid_create(9, 40);

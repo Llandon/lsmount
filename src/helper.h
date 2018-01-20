@@ -8,6 +8,6 @@
 #include <libintl.h>
 
 int   is_symlink(const char* filename);
-char* read_file_to_buf(const char* file, size_t initial_buf_size);
+char* read_file_to_buf(const char* file);
 
 #endif
