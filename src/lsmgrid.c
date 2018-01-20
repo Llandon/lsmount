@@ -117,7 +117,7 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 	while( line != NULL ) {
 		char *save_pointer = NULL; // primary
 		char *elem_of_line = strtok_r(line, " ", &save_pointer);
-		if(NULL != to_skip && strstr(to_skip, elem_of_line)) { // FIXME undefined behaviour
+		if(NULL != to_skip && strstr(to_skip, elem_of_line)) {
 			line = strtok_r(NULL, "\n", &line_r);
 		}else{
 			while( elem_of_line != NULL ) {
