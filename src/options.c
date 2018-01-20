@@ -64,10 +64,8 @@ int parsecmd(int argc, char** argv) {
 				break;
 			case 'f':
 				mnt_file = optarg;
-				use_other_file = 1;
 				break;
 			case 'F':
-				use_other_file = 0;
 				mnt_file = MNT_FILE;
 				break;
 			case 'h':
@@ -146,6 +144,7 @@ int parsecmd(int argc, char** argv) {
 				usage(1);
 		}
 	}
+
 	return 0;
 }
 

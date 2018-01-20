@@ -10,7 +10,6 @@ uint8_t show_unused;
 uint8_t resolve_symlinks;
 uint8_t use_alignment;
 uint8_t vertical;
-uint8_t use_other_file;
 char *to_skip;
 
 char *mnt_file;
