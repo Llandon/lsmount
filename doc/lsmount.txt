@@ -28,8 +28,8 @@ OPTIONS
 	show help and version
 *-l*, *--resolv_symlinks* ::
 	resolv symlinks
-*-s*, *--skip*='fstype1','fstype2',... ::
-	skip all lines where fstype is part of comma seperated list
+*-s*, *--skip*='dev1','dev2',... ::
+	skip all lines where device is part of comma seperated list
 *-u*, *--show_unused* ::
 	show unused columns
 *-v*, *--print_vertical* ::
