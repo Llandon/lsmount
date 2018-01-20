@@ -1,7 +1,7 @@
 Overview
 ==========
 
-lsmount is a small program for formating the /proc/mounts output
+lsmount is a small program for formatting the /proc/mounts output
 
 --------------------
 Dependencies

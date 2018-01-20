@@ -29,7 +29,7 @@ OPTIONS
 *-l*, *--resolv-symlinks* ::
 	resolv symlinks
 *-s*, *--skip*='dev1','dev2',... ::
-	skip all lines where device is part of comma seperated list
+	skip all lines where device is part of comma separated list
 *-u*, *--show-unused* ::
 	show unused columns
 *-v*, *--print-vertical* ::

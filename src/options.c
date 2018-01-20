@@ -232,12 +232,12 @@ uint8_t colorcap(void) {
 			}else if(-1 == *errret) {
 				fprintf(stderr, _("terminfo database could not be found\n"));
 			}else{
-				fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
+				fprintf(stderr, _("something strange happened while evaluating terminfo\n"));
 			}
 			del_curterm(cur_term);
 			return 0;
 		}else{
-			fprintf(stderr, _("something strange happend while evaluating terminfo\n"));
+			fprintf(stderr, _("something strange happened while evaluating terminfo\n"));
 			del_curterm(cur_term);
 			return 0;
 		}
