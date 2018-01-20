@@ -53,6 +53,21 @@ int main(int argc, char** argv) {
 		mnt_file = MNT_FILE;
 	}
 
+	if(debug == 1) {
+		printf(
+			"debug:            %d\n"
+			"use_color:        %d\n"
+			"show_unused:      %d\n"
+			"resolve_symlinks: %d\n"
+			"use_alignment:    %d\n"
+			"vertical:         %d\n"
+			"to_skip:          %s\n"
+			"mnt_file:         %s\n",
+			debug, use_color, show_unused, resolve_symlinks, use_alignment, 
+			vertical, to_skip, mnt_file
+		);
+	}
+
 	// read file to buffer
 	char* filebuf = read_file_to_buf(mnt_file, 1024);
 
