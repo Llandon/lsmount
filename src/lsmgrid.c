@@ -56,6 +56,13 @@ void grid_print(t_grid* grid) {
 	size_t cols = grid->columns;
 
 	if(use_alignment == 1) { grid_analyse(grid); }
+	if(debug == 1) {
+		printf("cl: "); 
+		for(uint8_t i=0; i<6; ++i) {
+			printf("[%lu]", column_length[i]);
+		}
+		putchar('\n');
+	}
 
 	for(size_t r=0; r<rows; ++r) {
 		for(size_t c=0; c<cols; ++c) {
@@ -114,6 +121,9 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 			line = strtok_r(NULL, "\n", &line_r);
 		}else{
 			while( elem_of_line != NULL ) {
+				if(debug == 1) {
+					printf("%s\n",elem_of_line);
+				}
 
 				if(resolve_symlinks == 1 && is_symlink(elem_of_line)) {
 					char resolvBuf[PATH_MAX] = "";
