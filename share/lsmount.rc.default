@@ -1,0 +1,9 @@
+use-alignment    = true;
+use-color        = true;
+debug            = false;
+resolve-symlinks = true;
+shrink-eighty    = false;
+show-unused      = false;
+print-vertical   = false;
+set-colors       = "red,green,blue,yellow,white,white";
+skip             = "";

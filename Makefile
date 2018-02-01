@@ -34,7 +34,7 @@ clean:
 
 install: lsmount manpage
 	cp lsmount /usr/bin/$(BIN)
-	cp share/lsmount.rc.example /etc/lsmountrc
+	cp share/lsmount.rc.default /etc/lsmountrc
 	cp doc/lsmount.1.gz /usr/share/man/man1/
 
 uninstall:
