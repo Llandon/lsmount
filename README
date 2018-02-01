@@ -22,8 +22,12 @@ libconfig-dev (>=1.4.8)
 libncureses5-dev
 asciidoc
 xmlto
+gzip
 
-Command
+--------------------
+Build command
+--------------------
+
 make
 
 --------------------
