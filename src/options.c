@@ -113,15 +113,17 @@ int parsecmd(int argc, char** argv) {
 					char* value;
 					char* subopts;
 					char* const tokens[] = {
-						"use-color",
-						NULL
+						NULL // not searching for tokens, want the whole string
 					};
 
 					subopts = optarg;
 					uint8_t i=0;
 
 					while(*subopts != '\0') {
-						getsubopt(&subopts, tokens, &value);
+						if(-1 != getsubopt(&subopts, tokens, &value)) {
+							printf(_("recognized token where I shouldn't\n"));
+							exit(1);
+						}
 						colors[i] = colortoesc(value);
 						++i;
 					}
