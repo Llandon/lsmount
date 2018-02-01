@@ -4,7 +4,7 @@ CC      = /usr/bin/gcc
 CFLAGS += -std=gnu99 -lconfig -D_GNU_SOURCE
 CFLAGS += `pkg-config --cflags libconfig`
 LDLIBS += `pkg-config --libs libconfig`
-LDFLAGS = -ltermcap
+LDFLAGS = -ltermcap -z now
 BIN     = lsmount
 OBJ     = lsmount.o lsmgrid.o options.o lsmcolors.o helper.o
 VPATH   = src
