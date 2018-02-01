@@ -11,8 +11,7 @@ lsmount - a simple formatter for /proc/mounts
 DESCRIPTION
 -----------
 gives you a much more readable output of /proc/mounts
-with optional colorizing, alignment and a few more useful
-options.
+with optional colorizing, alignment and more useful options.
 
 OPTIONS
 -------
@@ -54,7 +53,13 @@ AUTHOR
 ------
 *lsmount* is written by Andreas Schwarz *contact:* contact@lsmount.org
 
+SEE ALSO
+--------
+mount(8)
+
 RESOURCES
 ---------
-Git: <git://github.com/Llandon/lsmount.git>
+Git: <https://github.com/Llandon/lsmount.git>
+
+WWW: <https://www.lsmount.org>
 
