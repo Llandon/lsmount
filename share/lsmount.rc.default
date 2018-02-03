@@ -1,5 +1,5 @@
 use-alignment    = true;
-use-color        = true;
+use-color        = "auto";
 debug            = false;
 resolve-symlinks = true;
 shrink-eighty    = false;
