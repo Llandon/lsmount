@@ -71,7 +71,10 @@ void grid_print(t_grid* grid) {
 
 			printf("%s ", grid->elem[r*cols+c].value);
 
-			if(use_alignment == 1) {
+			if(
+				(use_alignment == 1 && show_unused == 1) ||
+				(use_alignment == 1 && (show_unused == 0 && c<3))
+			) {
 				size_t delta = 
 					column_length[c] - strlen(grid->elem[r*cols+c].value);
 				if(delta>0) {
