@@ -65,7 +65,15 @@ char* read_file_to_buf(const char* file) {
 	}
 
 	// shrink buffer to really needed size
-	filebuf = realloc(filebuf, sizeof(char)*strlen(filebuf)+1);
+	char *shrk_filebuf = realloc(filebuf, sizeof(char)*strlen(filebuf)+1);
+	if( NULL == shrk_filebuf ) { // check if realloc was successful
+		free(filebuf);
+		fprintf(stderr, _("realloc failed\n"));
+		exit(1);
+	}else{
+		filebuf = shrk_filebuf;
+		filebuf_size = strlen(filebuf)+(size_t)filebuf_size;
+	}
 
 	if(0 != fclose(stream)) {
 		fprintf(stderr, _("fclose error (%s)\n"), strerror(errno));
@@ -73,5 +81,17 @@ char* read_file_to_buf(const char* file) {
 	}
 
 	return filebuf;
+}
+
+size_t get_buf_lines(const char* buf) {
+	size_t i=0;
+	size_t lines=0;
+	while(i<=strlen(buf)) {
+		if(buf[i] == '\n') {
+			++lines;
+		}
+		++i;
+	}
+	return lines;
 }
 

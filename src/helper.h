@@ -9,5 +9,6 @@
 
 int   is_symlink(const char* filename);
 char* read_file_to_buf(const char* file);
+size_t get_buf_lines(const char* buf);
 
 #endif
