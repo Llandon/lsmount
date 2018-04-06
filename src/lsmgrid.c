@@ -171,3 +171,40 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 	}
 	return 1;
 }
+
+int get_grid_dims(const char *cBuf, size_t *grows, size_t *gcols) {
+	size_t rows     = 0;
+	size_t elem_cnt = 0;
+
+	char *buf = strdup(cBuf);
+
+	char *line_r = NULL;
+	char *line   = strtok_r(buf, "\n", &line_r);
+
+	while( line != NULL ) {
+		char *save_pointer = NULL; // primary
+		char *elem_of_line = strtok_r(line, " ", &save_pointer);
+		if(NULL != to_skip && strstr(to_skip, elem_of_line)) {
+			line = strtok_r(NULL, "\n", &line_r);
+		}else{
+			while( elem_of_line != NULL ) {
+				elem_of_line = strtok_r(NULL, " ", &save_pointer);
+				++elem_cnt;
+			}
+
+			line = strtok_r(NULL, "\n", &line_r);
+			++rows;
+		}
+	}
+
+	free(buf);
+
+	if(rows > 0) {
+		*grows = rows;
+		*gcols  = elem_cnt/rows;
+		return 1;
+	}else{
+		fprintf(stderr, _("Can't load at least one row from buffer\n"));
+		return 0;
+	}
+}

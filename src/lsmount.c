@@ -70,12 +70,45 @@ int main(int argc, char** argv) {
 
 	// read file to buffer
 	char* filebuf = read_file_to_buf(mnt_file);
+	// evaluate grid dimensions
+	size_t grows = 0; //get_buf_lines(filebuf);
+	size_t gcols = 0; //get_buf_cols(filebuf);
+	if(!get_grid_dims(filebuf, &grows, &gcols)) {
+		fprintf(stderr, _("can't get grid dimensions\n"));
+		free(conf_file2);
+		free(filebuf);
+		free(to_skip);
+		exit(1);
+	}
+
+	if(debug == 1) {
+		printf(
+			"grows:            %ld\n"
+			"gcols:            %ld\n",
+			grows, gcols
+		);
+	}
+
+	if(gcols != 6) {
+		fprintf(
+			stderr, 
+			_("\"%s\" doesn't seem to be a valid input file for lsmount\n"), 
+			mnt_file
+		);
+		free(conf_file2);
+		free(filebuf);
+		free(to_skip);
+		exit(1);
+	}
 
 	// create grid
-	t_grid* grid = grid_create(9, 40);
+	t_grid* grid = grid_create(gcols, grows);
 	// load data to grid
 	if(!grid_load_from_buf(grid, filebuf)) {
 		fprintf(stderr, _("load to grid failed (%s)\n"), strerror(errno));
+		free(conf_file2);
+		free(filebuf);
+		free(to_skip);
 		exit(1);
 	}
 	grid_print(grid);

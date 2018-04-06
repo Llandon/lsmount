@@ -27,5 +27,6 @@ void grid_destroy(t_grid* grid);
 void grid_print(t_grid* grid);
 void grid_analyse(t_grid* grid);
 int  grid_load_from_buf(t_grid* grid, char* buf);
+int  get_grid_dims(const char* buf, size_t* grows, size_t* gcols);
 
 #endif
