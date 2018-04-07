@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.2] - 2018-04-07
+### Fixed
+don't fill up last column with spaces when show_unused=0
+remove hard coded grid size
+
 ## [0.2.1] - 2018-02-03
 ### Fixed
 some hardening
