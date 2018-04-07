@@ -71,8 +71,8 @@ int main(int argc, char** argv) {
 	// read file to buffer
 	char* filebuf = read_file_to_buf(mnt_file);
 	// evaluate grid dimensions
-	size_t grows = 0; //get_buf_lines(filebuf);
-	size_t gcols = 0; //get_buf_cols(filebuf);
+	size_t grows = 0;
+	size_t gcols = 0;
 	if(!get_grid_dims(filebuf, &grows, &gcols)) {
 		fprintf(stderr, _("can't get grid dimensions\n"));
 		free(conf_file2);

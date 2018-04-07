@@ -10,9 +10,9 @@ uint8_t show_unused;
 uint8_t resolve_symlinks;
 uint8_t use_alignment;
 uint8_t vertical;
-char *to_skip;
+char* to_skip;
 
-char *mnt_file;
+char* mnt_file;
 #ifndef MNT_FILE
 #define MNT_FILE "/proc/mounts"
 #endif

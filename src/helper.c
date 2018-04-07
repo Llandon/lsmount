@@ -24,7 +24,7 @@ char* read_file_to_buf(const char* file) {
 	size_t filebuf_size = 1024; // initial size
 
 	// open read only file stream
-	FILE *stream = fopen(file, "r");
+	FILE* stream = fopen(file, "r");
 	if(NULL == stream) {
 		fprintf(stderr, _("fopen on %s failed (%s)\n"), file, strerror(errno));
 		exit(1);
@@ -45,7 +45,7 @@ char* read_file_to_buf(const char* file) {
 		// expand filebuf by filebuf_size if necessary 
 		// n^2 growth
 		if( (size_t)filebuf_size == (size_t)strlen(filebuf)+1) {
-			char *new_filebuf = realloc(
+			char* new_filebuf = realloc(
 				filebuf,
 				strlen(filebuf)+(size_t)filebuf_size // double size
 			);
@@ -65,7 +65,7 @@ char* read_file_to_buf(const char* file) {
 	}
 
 	// shrink buffer to really needed size
-	char *shrk_filebuf = realloc(filebuf, sizeof(char)*strlen(filebuf)+1);
+	char* shrk_filebuf = realloc(filebuf, sizeof(char)*strlen(filebuf)+1);
 	if( NULL == shrk_filebuf ) { // check if realloc was successful
 		free(filebuf);
 		fprintf(stderr, _("realloc failed\n"));

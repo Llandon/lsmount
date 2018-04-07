@@ -114,12 +114,12 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 	size_t rows     = 0;
 	size_t elem_cnt = 0;
 
-	char *line_r = NULL;
-	char *line   = strtok_r(buf, "\n", &line_r);
+	char* line_r = NULL;
+	char* line   = strtok_r(buf, "\n", &line_r);
 
 	while( line != NULL ) {
-		char *save_pointer = NULL; // primary
-		char *elem_of_line = strtok_r(line, " ", &save_pointer);
+		char* save_pointer = NULL; // primary
+		char* elem_of_line = strtok_r(line, " ", &save_pointer);
 		if(NULL != to_skip && strstr(to_skip, elem_of_line)) {
 			line = strtok_r(NULL, "\n", &line_r);
 		}else{
@@ -131,7 +131,7 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 				if(resolve_symlinks == 1 && is_symlink(elem_of_line)) {
 					char resolvBuf[PATH_MAX] = "";
 					if(NULL != realpath(elem_of_line, resolvBuf)) {
-						char *dest = malloc(sizeof(char)*strlen(resolvBuf)+1);
+						char* dest = malloc(sizeof(char)*strlen(resolvBuf)+1);
 						if(NULL == tofree) {
 							tofree = malloc(sizeof(char*));
 							if(NULL == tofree) {
@@ -139,7 +139,8 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 								exit(1);
 							}
 						}else{
-							char** np = realloc(tofree, (tofree_c+1)*sizeof(char*));
+							char** np = 
+								realloc(tofree, (tofree_c+1)*sizeof(char*));
 							if(NULL == np) {
 								fprintf(stderr, _("realloc failed\n"));
 								exit(1);
@@ -172,18 +173,18 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 	return 1;
 }
 
-int get_grid_dims(const char *cBuf, size_t *grows, size_t *gcols) {
+int get_grid_dims(const char* cBuf, size_t* grows, size_t* gcols) {
 	size_t rows     = 0;
 	size_t elem_cnt = 0;
 
-	char *buf = strdup(cBuf);
+	char* buf = strdup(cBuf);
 
-	char *line_r = NULL;
-	char *line   = strtok_r(buf, "\n", &line_r);
+	char* line_r = NULL;
+	char* line   = strtok_r(buf, "\n", &line_r);
 
 	while( line != NULL ) {
-		char *save_pointer = NULL; // primary
-		char *elem_of_line = strtok_r(line, " ", &save_pointer);
+		char* save_pointer = NULL; // primary
+		char* elem_of_line = strtok_r(line, " ", &save_pointer);
 		if(NULL != to_skip && strstr(to_skip, elem_of_line)) {
 			line = strtok_r(NULL, "\n", &line_r);
 		}else{

@@ -18,10 +18,10 @@ struct t_grid {
 };
 
 struct t_elem {
-    char *value;
+    char* value;
 };
 
-t_grid *grid_create(size_t columns, size_t rows);
+t_grid* grid_create(size_t columns, size_t rows);
 
 void grid_destroy(t_grid* grid);
 void grid_print(t_grid* grid);
