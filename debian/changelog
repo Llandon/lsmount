@@ -1,0 +1,5 @@
+lsmount (0.2.2-1) unstable; urgency=low
+
+  * Initial release. (Closes: #889469)
+
+ -- Andreas Schwarz <a.schwarz_dev@dntw.de>  Sat, 30 Jun 2018 13:15:00 +0200
