@@ -129,13 +129,14 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 				}
 
 				if(resolve_symlinks == 1 && is_symlink(elem_of_line)) {
-					char resolvBuf[PATH_MAX] = "";
-					if(NULL != realpath(elem_of_line, resolvBuf)) {
+					char* resolvBuf = realpath(elem_of_line, NULL);
+					if(NULL != resolvBuf) {
 						char* dest = malloc(sizeof(char)*strlen(resolvBuf)+1);
 						if(NULL == tofree) {
 							tofree = malloc(sizeof(char*));
 							if(NULL == tofree) {
 								fprintf(stderr, _("malloc failed\n"));
+								free(resolvBuf);
 								exit(1);
 							}
 						}else{
@@ -143,6 +144,7 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 								realloc(tofree, (tofree_c+1)*sizeof(char*));
 							if(NULL == np) {
 								fprintf(stderr, _("realloc failed\n"));
+								free(resolvBuf);
 								exit(1);
 							}else{
 								tofree = np; 
@@ -150,6 +152,7 @@ int grid_load_from_buf(t_grid* grid, char* buf) {
 						}
 						tofree[tofree_c++] = dest;
 						strncpy(dest, resolvBuf, strlen(resolvBuf)+1);
+						free(resolvBuf);
 						grid->elem[elem_cnt].value = dest;
 					}
 				}else{
