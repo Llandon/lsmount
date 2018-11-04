@@ -14,6 +14,14 @@
 #include "options.h"
 #include "helper.h"
 
+#ifdef _POSIX_VERSION
+	#if _POSIX_VERSION < 200809L
+		#error at least POSIX version 201809 required
+	#endif
+#else
+	#error POSIX support required.
+#endif
+
 int main(int argc, char** argv) {
 	setlocale(LC_ALL, "");
 	bindtextdomain("lsmount", "/usr/share/locale");
