@@ -16,7 +16,7 @@
 
 #ifdef _POSIX_VERSION
 	#if _POSIX_VERSION < 200809L
-		#error at least POSIX version 201809 required
+		#error at least POSIX version 200809 required
 	#endif
 #else
 	#error POSIX support required.
