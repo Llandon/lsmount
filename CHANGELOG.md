@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.3] - 2019-01-05
+### Fixed
+fixes incompatibility with hurd by removing PATH_MAX 
+### Changed
+add compile time check for _POSIX_VERSION
+### Removed
+limits.h is no longer needed
+
 ## [0.2.2] - 2018-04-07
 ### Fixed
 don't fill up last column with spaces when show_unused=0
