@@ -2,7 +2,7 @@ Source: lsmount
 Maintainer: Andreas Schwarz <a.schwarz_dev@dntw.de>
 Section: utils
 Priority: optional
-Standards-Version: 4.1.4.0
+Standards-Version: 4.3.0
 Vcs-Git: https://github.com/Llandon/lsmount.git
 Vcs-browser: https://github.com/Llandon/lsmount
 Homepage: https://www.lsmount.org
