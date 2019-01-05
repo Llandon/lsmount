@@ -272,7 +272,7 @@ void usage (int status) {
 	       "all short options can be inverted by using the uppercase letter,\n"
 	       "the longopts can be inverted by adding dont- in front.\n"
 	       "\n"
-	       "Version: v0.2.2\n"
+	       "Version: v0.2.3\n"
 	       "License: ISC\n")
 	);
 	free(to_skip);
