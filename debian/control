@@ -6,7 +6,7 @@ Standards-Version: 4.3.0
 Vcs-Git: https://github.com/Llandon/lsmount.git
 Vcs-browser: https://github.com/Llandon/lsmount
 Homepage: https://www.lsmount.org
-Build-Depends: libconfig-dev (>=1.4.8), debhelper (>=11), asciidoc, xmlto, libncurses-dev
+Build-Depends: libconfig-dev (>=1.4.8), debhelper (>=12), asciidoc, xmlto, libncurses-dev
 
 Package: lsmount
 Architecture: any
