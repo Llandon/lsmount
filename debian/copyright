@@ -4,7 +4,7 @@ Upstream-Contact: Andreas Schwarz <a.schwarz_dev@dntw.de>
 Source: https://github.com/Llandon/lsmount/
 
 Files: *
-Copyright: 2013-2018 Andreas Schwarz
+Copyright: 2013-2019 Andreas Schwarz
 License: ISC
   Permission to use, copy, modify, and/or distribute this software for any
   purpose with or without fee is hereby granted, provided that the above
