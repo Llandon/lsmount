@@ -1,3 +1,10 @@
+lsmount (0.2.3-1) unstable; urgency=low
+
+  * fixes incompatibility with hurd by removing PATH_MAX
+  * add compile time check for _POSIX_VERSION
+
+ -- Andreas Schwarz <a.schwarz_dev@dntw.de>  Sat, 05 Jan 2019 18:45:00 +0100
+
 lsmount (0.2.2-1) unstable; urgency=low
 
   * Initial release. (Closes: #889469)
