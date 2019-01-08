@@ -1,0 +1,17 @@
+Source: lsmount
+Maintainer: Andreas Schwarz <a.schwarz_dev@dntw.de>
+Section: utils
+Priority: optional
+Standards-Version: 4.3.0
+Vcs-Git: https://github.com/Llandon/lsmount.git
+Vcs-browser: https://github.com/Llandon/lsmount
+Homepage: https://www.lsmount.org
+Build-Depends: libconfig-dev (>=1.4.8), debhelper (>=12), asciidoc, xmlto, libncurses-dev
+
+Package: lsmount
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: is a small program for formatting the /proc/mounts output
+ With a larger number of mounts the output of /proc/mounts isn't longer
+ really comfortable to read. This is where lsmount with options such as
+ alignment and colorisation comes into action.

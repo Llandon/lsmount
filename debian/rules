@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_install:
+	install -m 755 lsmount $(CURDIR)/debian/lsmount/usr/bin/
+	install -m 644 share/lsmount.rc.default $(CURDIR)/debian/lsmount/etc/lsmountrc
+
+override_dh_auto_build:
+	dh_auto_build
+	a2x -f manpage doc/lsmount.txt
