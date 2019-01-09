@@ -1,9 +1,17 @@
 lsmount (0.2.3-1) unstable; urgency=low
 
-  * fixes incompatibility with hurd by removing PATH_MAX
-  * add compile time check for _POSIX_VERSION
+  * upstream changes
+    - fixes incompatibility with hurd by removing PATH_MAX (Closes: #908067)
+    - add compile time check for _POSIX_VERSION
 
- -- Andreas Schwarz <a.schwarz_dev@dntw.de>  Sat, 05 Jan 2019 18:45:00 +0100
+  * package changes
+    - new upstream version
+    - fixed errors in debian/watch file
+    - did a clean export for debian/upstream/signing-key.asc
+    - switch to current debhelper version
+    - switch to current standards version
+
+ -- Andreas Schwarz <a.schwarz_dev@dntw.de>  Wed, 09 Jan 2019 21:15:00 +0100
 
 lsmount (0.2.2-1) unstable; urgency=low
 
