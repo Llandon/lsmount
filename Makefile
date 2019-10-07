@@ -1,13 +1,14 @@
 .PHONY: all clean install uninstall manpage
 
-CC      = /usr/bin/gcc
-CFLAGS += -std=gnu99 -lconfig -D_GNU_SOURCE
-CFLAGS += `pkg-config --cflags libconfig`
-LDLIBS += `pkg-config --libs libconfig`
-LDFLAGS = -ltermcap -z now
-BIN     = lsmount
-OBJ     = lsmount.o lsmgrid.o options.o lsmcolors.o helper.o
-VPATH   = src
+CC          = /usr/bin/gcc
+PKG_CONFIG ?= pkg-config
+CFLAGS     += -std=gnu99 -lconfig -D_GNU_SOURCE
+CFLAGS     += `$(PKG_CONFIG) --cflags libconfig`
+LDLIBS     += `$(PKG_CONFIG) --libs libconfig`
+LDFLAGS     = -ltermcap -z now
+BIN         = lsmount
+OBJ         = lsmount.o lsmgrid.o options.o lsmcolors.o helper.o
+VPATH       = src
 
 all: CFLAGS += -O2 -Wall -pedantic -fPIE -D_FORTIFY_SOURCE=1
 all: $(BIN)
