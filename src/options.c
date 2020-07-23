@@ -82,12 +82,10 @@ int parsecmd(int argc, char** argv) {
 				break;
 			case 's':
 				if(optarg) {
-					size_t optsize = strlen(optarg)+1;
 					if(NULL != to_skip) {
 						free(to_skip); // if set by conf
 					}
-					to_skip = (char*)malloc(optsize);
-					strncpy(to_skip, optarg,optsize);
+					to_skip = strdup(optarg);
 				}
 				break;
 			case 'S':
@@ -172,8 +170,7 @@ int readconffile(const char* config_file) {
     }
 	if(config_lookup_string(&cfg, "skip", &strvalue)) {
 		if(strvalue) {
-			to_skip = (char*)malloc(strlen(strvalue)+1);
-			strcpy(to_skip,strvalue);
+			to_skip = strdup(strvalue);
 		}
 	}
     if(config_lookup_bool(&cfg, "use-color", &value)) {
