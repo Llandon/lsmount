@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.4] - 2020-07-23
+### Fixed
+make pkg-config substitutable
+typo in dependencies
+build issues with GCC 10
+
 ## [0.2.3] - 2019-01-05
 ### Fixed
 fixes incompatibility with hurd by removing PATH_MAX 
