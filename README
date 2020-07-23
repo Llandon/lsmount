@@ -19,7 +19,7 @@ Dependencies
 debhelper (>=9)
 libc6-dev
 libconfig-dev (>=1.4.8)
-libncureses5-dev
+libncurses-dev
 asciidoc
 xmlto
 gzip
