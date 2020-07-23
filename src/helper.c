@@ -61,7 +61,11 @@ char* read_file_to_buf(const char* file) {
 
 		char buf[2]; // buffer for snprintf
 		snprintf(buf, 2, "%c", c); // read c to buf as char with 0-Byte
+		#pragma GCC diagnostic push
+		#pragma GCC diagnostic ignored "-Wstringop-truncation"
+		// buf is definitely null terminated accordingly we can ignore the warning here
 		filebuf = strncat(filebuf, buf, 1); // write char to filebuf
+		#pragma GCC diagnostic pop
 	}
 
 	// shrink buffer to really needed size
