@@ -1,3 +1,15 @@
+lsmount (0.2.4-1) unstable; urgency=low
+
+  * upstream changes
+    - make pkg-config substitutable (Closes: #941677)
+    - typo in dependencies (README)
+    - build issues with GCC 10 (Closes: #957507)
+
+  * package changes
+    - new upstream version
+
+ -- Andreas Schwarz <a.schwarz_dev@dntw.de>  Fri, 24 Jul 2020 01:00:00 +0200
+
 lsmount (0.2.3-1) unstable; urgency=low
 
   * upstream changes
