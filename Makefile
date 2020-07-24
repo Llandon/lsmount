@@ -2,7 +2,7 @@
 
 CC          = /usr/bin/gcc
 PKG_CONFIG ?= pkg-config
-CFLAGS     += -std=gnu99 -lconfig -D_GNU_SOURCE
+CFLAGS     += -std=gnu99 -lconfig -D_GNU_SOURCE -fcommon
 CFLAGS     += `$(PKG_CONFIG) --cflags libconfig`
 LDLIBS     += `$(PKG_CONFIG) --libs libconfig`
 LDFLAGS     = -ltermcap -z now
