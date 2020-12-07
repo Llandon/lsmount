@@ -58,7 +58,7 @@ void grid_print(t_grid* grid) {
 	if(debug == 1) {
 		printf("cl: "); 
 		for(uint8_t i=0; i<6; ++i) {
-			printf("[%lu]", column_length[i]);
+			printf("[%zu]", column_length[i]);
 		}
 		putchar('\n');
 	}
