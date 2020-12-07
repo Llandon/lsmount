@@ -90,8 +90,8 @@ int main(int argc, char** argv) {
 
 	if(debug == 1) {
 		printf(
-			"grows:            %ld\n"
-			"gcols:            %ld\n",
+			"grows:            %zu\n"
+			"gcols:            %zu\n",
 			grows, gcols
 		);
 	}
