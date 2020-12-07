@@ -83,7 +83,6 @@ int main(int argc, char** argv) {
 	size_t gcols = 0;
 	if(!get_grid_dims(filebuf, &grows, &gcols)) {
 		fprintf(stderr, _("can't get grid dimensions\n"));
-		free(conf_file2);
 		free(filebuf);
 		free(to_skip);
 		exit(1);
@@ -103,7 +102,6 @@ int main(int argc, char** argv) {
 			_("\"%s\" doesn't seem to be a valid input file for lsmount\n"), 
 			mnt_file
 		);
-		free(conf_file2);
 		free(filebuf);
 		free(to_skip);
 		exit(1);
@@ -114,7 +112,6 @@ int main(int argc, char** argv) {
 	// load data to grid
 	if(!grid_load_from_buf(grid, filebuf)) {
 		fprintf(stderr, _("load to grid failed (%s)\n"), strerror(errno));
-		free(conf_file2);
 		free(filebuf);
 		free(to_skip);
 		exit(1);
