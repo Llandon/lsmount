@@ -4,9 +4,9 @@ Section: utils
 Priority: optional
 Standards-Version: 4.6.1
 Vcs-Git: https://github.com/Llandon/lsmount.git
-Vcs-browser: https://github.com/Llandon/lsmount
 Homepage: https://www.lsmount.org
 Build-Depends: libconfig-dev (>= 1.4.8), debhelper-compat (= 13), asciidoc, xmlto, libncurses-dev
+Vcs-Browser: https://github.com/Llandon/lsmount
 
 Package: lsmount
 Architecture: any
