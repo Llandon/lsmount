@@ -2,15 +2,20 @@
 
 CC          = /usr/bin/gcc
 PKG_CONFIG ?= pkg-config
+
 CFLAGS     += -std=gnu99 -lconfig -D_GNU_SOURCE -fcommon
 CFLAGS     += `$(PKG_CONFIG) --cflags libconfig`
+CFLAGS     += `dpkg-buildflags --get CFLAGS`
+CFLAGS     += `dpkg-buildflags --get CPPFLAGS`
+
 LDLIBS     += `$(PKG_CONFIG) --libs libconfig`
 LDFLAGS     = -ltermcap -z now
+LDFLAGS    += `dpkg-buildflags --get LDFLAGS`
+
 BIN         = lsmount
 OBJ         = lsmount.o lsmgrid.o options.o lsmcolors.o helper.o
 VPATH       = src
 
-all: CFLAGS += -O2 -Wall -pedantic -fPIE -D_FORTIFY_SOURCE=1
 all: $(BIN)
 
 debug: CFLAGS += -g -Og -DDEBUG -Werror -Wextra -pedantic  -Wcast-qual -Wcast-align -Wformat -Wformat-nonliteral -Wformat-security  -Winit-self -Wmissing-include-dirs -Wno-suggest-attribute=noreturn -Wno-write-strings -Wpointer-arith -Wredundant-decls -Wundef -Wpacked -Wunreachable-code  -Wno-unused-parameter -Wconversion -Wshadow -Wstrict-prototypes -Wbad-function-cast -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wnested-externs
