@@ -1,3 +1,5 @@
+Bug-Database: https://github.com/Llandon/lsmount/issues
+Bug-Submit: https://github.com/Llandon/lsmount/issues/new
 Reference:
   Author: Andreas Schwarz
   Bug-Database: https://github.com/Llandon/lsmount/issues
@@ -6,3 +8,5 @@ Reference:
   Contact: contact@lsmount.org
   Repository: https://github.com/Llandon/lsmount.git
   Repository-Browser: https://github.com/Llandon/lsmount
+Repository: https://github.com/Llandon/lsmount.git
+Repository-Browse: https://github.com/llandon/lsmount
