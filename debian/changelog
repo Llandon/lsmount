@@ -1,3 +1,11 @@
+lsmount (0.2.4-2) unstable; urgency=low
+
+  * package changes
+    - fix watch-file
+    - replace ltermcap with lncurses (LDFLAGS)
+
+ -- Andreas Schwarz <a.schwarz_dev@dntw.de>  Mon, 30 Dec 2024 23:00:00 +0100
+
 lsmount (0.2.4-1) unstable; urgency=low
 
   * upstream changes

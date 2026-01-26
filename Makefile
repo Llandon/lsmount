@@ -9,7 +9,7 @@ CFLAGS     += `dpkg-buildflags --get CFLAGS`
 CFLAGS     += `dpkg-buildflags --get CPPFLAGS`
 
 LDLIBS     += `$(PKG_CONFIG) --libs libconfig`
-LDFLAGS     = -ltermcap -z now
+LDFLAGS     = -lncurses -z now
 LDFLAGS    += `dpkg-buildflags --get LDFLAGS`
 
 BIN         = lsmount
