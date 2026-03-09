@@ -3,7 +3,7 @@
 CC          = /usr/bin/gcc
 PKG_CONFIG ?= pkg-config
 
-CFLAGS     += -std=gnu99 -lconfig -D_GNU_SOURCE -fcommon
+CFLAGS     += -std=gnu99 -D_GNU_SOURCE -fcommon
 CFLAGS     += `$(PKG_CONFIG) --cflags libconfig`
 CFLAGS     += `dpkg-buildflags --get CFLAGS`
 CFLAGS     += `dpkg-buildflags --get CPPFLAGS`
