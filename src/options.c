@@ -170,6 +170,9 @@ int readconffile(const char* config_file) {
     }
 	if(config_lookup_string(&cfg, "skip", &strvalue)) {
 		if(strvalue) {
+			if(NULL != to_skip) {
+				free(to_skip);  // free old value first
+			}
 			to_skip = strdup(strvalue);
 		}
 	}
@@ -219,8 +222,9 @@ int readconffile(const char* config_file) {
 }
 
 uint8_t colorcap(void) {
-	int* errret = NULL;
-	int  ret    = setupterm(NULL, 1, errret); // will leak mem (curses sucks)
+	int errret_value = 0;
+	int* errret = &errret_value;
+	int ret = setupterm(NULL, 1, errret);
 
 	if(0 != ret) {
 		if(NULL != errret) {

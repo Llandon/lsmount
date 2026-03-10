@@ -90,7 +90,7 @@ char* read_file_to_buf(const char* file) {
 size_t get_buf_lines(const char* buf) {
 	size_t i=0;
 	size_t lines=0;
-	while(i<=strlen(buf)) {
+	while(i<strlen(buf)) {
 		if(buf[i] == '\n') {
 			++lines;
 		}
